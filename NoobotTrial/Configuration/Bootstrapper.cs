@@ -22,6 +22,8 @@ namespace NoobotTrial.Configuration
             var containerFactory = new ContainerFactory(configuration, configurationReader, logger);
 
             var container = containerFactory.CreateContainer();
+
+
             var structuremapContainer = container.GetStructuremapContainer();
 
             structuremapContainer.Configure(config =>

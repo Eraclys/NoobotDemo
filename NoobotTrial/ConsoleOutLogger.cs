@@ -5,7 +5,7 @@ using Common.Logging.Simple;
 
 namespace NoobotTrial
 {
-    public class ConsoleOutLogger : AbstractSimpleLogger
+    public sealed class ConsoleOutLogger : AbstractSimpleLogger
     {
         public ConsoleOutLogger(string logName, LogLevel logLevel, bool showLevel, bool showDateTime, bool showLogName, string dateTimeFormat)
             : base(logName, logLevel, showLevel, showDateTime, showLogName, dateTimeFormat)
