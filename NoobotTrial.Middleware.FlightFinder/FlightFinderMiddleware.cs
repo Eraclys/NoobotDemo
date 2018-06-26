@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Common.Logging;
+﻿using Common.Logging;
 using Noobot.Core.MessagingPipeline.Middleware;
 using Noobot.Core.MessagingPipeline.Middleware.ValidHandles;
 using Noobot.Core.MessagingPipeline.Request;
 using Noobot.Core.MessagingPipeline.Response;
 using NoobotTrial.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NoobotTrial.Middleware.FlightFinder
 {
@@ -33,8 +33,6 @@ namespace NoobotTrial.Middleware.FlightFinder
 
         private IEnumerable<ResponseMessage> Handler(IncomingMessage message, IValidHandle matchedHandle)
         {
-            yield return message.IndicateTypingOnChannel();
-
             var results = _flightFinderClient.Find().GetAwaiter().GetResult();
 
             var attachments = results
