@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NoobotTrial.Core\NoobotTrial.Core.csproj" />
-    <ProjectReference Include="..\Noobot\noobot\src\Noobot.Core\Noobot.Core.csproj" />
+    <ProjectReference Include="..\SubModules\noobot\src\Noobot.Core\Noobot.Core.csproj" />
   </ItemGroup>
 
 </Project>
