@@ -2,6 +2,7 @@
 using Noobot.Toolbox.Middleware;
 using Noobot.Toolbox.Plugins;
 using NoobotTrial.Core;
+using NoobotTrial.Middleware.Calculator;
 using NoobotTrial.Middleware.FlightFinder;
 using NoobotTrial.Middleware.FormattingDemo;
 
@@ -17,6 +18,7 @@ namespace NoobotTrial.Configuration
             UseMiddleware<ScheduleMiddleware>();
             UseMiddleware<FlightFinderMiddleware>();
             UseMiddleware<AttachmentDemoMiddleware>();
+            UseMiddleware<CalculatorMiddleware>();
 
             UsePlugin<JsonStoragePlugin>();
             UsePlugin<SchedulePlugin>();
