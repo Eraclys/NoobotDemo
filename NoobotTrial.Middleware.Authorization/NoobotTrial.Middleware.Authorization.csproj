@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Sprache" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NoobotTrial.Core\NoobotTrial.Core.csproj" />
+    <ProjectReference Include="..\Noobot\Noobot.Toolbox\src\Noobot.Toolbox\Noobot.Toolbox.csproj" />
     <ProjectReference Include="..\Noobot\noobot\src\Noobot.Core\Noobot.Core.csproj" />
     <ProjectReference Include="..\SlackConnector\src\SlackConnector\SlackConnector.csproj" />
   </ItemGroup>
