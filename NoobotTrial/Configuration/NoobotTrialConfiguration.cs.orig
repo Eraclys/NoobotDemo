@@ -2,9 +2,12 @@
 using Noobot.Toolbox.Middleware;
 using Noobot.Toolbox.Plugins;
 using NoobotTrial.Core;
-using NoobotTrial.Middleware.Authorization;
+<<<<<<< HEAD
 using NoobotTrial.Middleware.Calculator;
 using NoobotTrial.Middleware.EnumerableDemo;
+=======
+using NoobotTrial.Middleware.Authorization;
+>>>>>>> a82380b... POC AuthorizationPlugin
 using NoobotTrial.Middleware.FlightFinder;
 using NoobotTrial.Middleware.FormattingDemo;
 
