@@ -37,12 +37,20 @@ namespace NoobotTrial.Middleware.FlightFinder
 
             var attachments = results
                 .OrderBy(x => x.Departure)
+                .Take(15)
                 .Select(x => new Attachment
                 {
                     Text = GetText(x),
                     Color = GetColor(x)
                 })
                 .ToList();
+
+            attachments.Add(new Attachment
+            {
+                Fallback = "Book  your flights at https://www.flypgs.com/en",
+                Color = "#000"
+            }.AddAttachmentAction("Book flights", "https://www.flypgs.com/en"));
+
 
             yield return message.ReplyToChannel("Here is what we found", attachments);
         }
