@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,12 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Noobot\noobot\src\Noobot.Core\Noobot.Core.csproj" />
+    <ProjectReference Include="..\SubModules\noobot\src\Noobot.Core\Noobot.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.Reflection.Metadata">
-      <HintPath>..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\ref\netcoreapp2.0\System.Reflection.Metadata.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.0.0\ref\netcoreapp2.0\System.Reflection.Metadata.dll</HintPath>
     </Reference>
   </ItemGroup>
 
