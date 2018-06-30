@@ -5,6 +5,8 @@ using Noobot.Core.MessagingPipeline.Request;
 using Noobot.Core.MessagingPipeline.Response;
 using NoobotTrial.Core;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace NoobotTrial.Middleware.Authorization
 {
@@ -60,11 +62,9 @@ namespace NoobotTrial.Middleware.Authorization
             
             var userEmail = PermissionCommandParser.ParseUsersByPermissionExpression(incomingMessage.TargetedText);
 
-            var allPermissions = _authorizationPlugin.ListUsersByPermissionName(userEmail);
-
-            var json = JsonConvert.SerializeObject(allPermissions, Formatting.Indented);
-
-            yield return incomingMessage.ReplyToChannel(json);
+            var users = _authorizationPlugin.ListUsersByPermissionName(userEmail);
+            
+            yield return UploadToUser(incomingMessage, users);
         }
 
         private IEnumerable<ResponseMessage> HandleListPermissionsByUser(IncomingMessage incomingMessage, IValidHandle validHandle)
@@ -76,11 +76,9 @@ namespace NoobotTrial.Middleware.Authorization
 
             var permissionName = PermissionCommandParser.ParsePermissionsByUserExpression(incomingMessage.TargetedText);
 
-            var allPermissions = _authorizationPlugin.ListPermissionsByUserEmail(permissionName);
+            var permissions = _authorizationPlugin.ListPermissionsByUserEmail(permissionName);
 
-            var json = JsonConvert.SerializeObject(allPermissions, Formatting.Indented);
-
-            yield return incomingMessage.ReplyToChannel(json);
+            yield return UploadToUser(incomingMessage, permissions);
         }
 
         private IEnumerable<ResponseMessage> HandleListAllPermissions(IncomingMessage incomingMessage, IValidHandle validHandle)
@@ -90,10 +88,9 @@ namespace NoobotTrial.Middleware.Authorization
                 yield return DeniedMessage(incomingMessage); yield break;
             }
 
-            var allPermissions = _authorizationPlugin.GetAllPermissions();
-            var json = JsonConvert.SerializeObject(allPermissions, Formatting.Indented);
+            var permissions = _authorizationPlugin.GetAllPermissions();
 
-            yield return incomingMessage.ReplyToChannel(json);
+            yield return UploadToUser(incomingMessage, permissions);
         }
 
         private IEnumerable<ResponseMessage> HandleGrantOrDenyPermission(IncomingMessage incomingMessage, IValidHandle validHandle)
@@ -127,6 +124,26 @@ namespace NoobotTrial.Middleware.Authorization
         private static ResponseMessage DeniedMessage(IncomingMessage incomingMessage)
         {
             return incomingMessage.ReplyToChannel("Not on my watch!");
+        }
+
+        private static ResponseMessage UploadToUser<T>(IncomingMessage incomingMessage, T value) where T : class
+        {
+            var serializer = JsonSerializer.Create(new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented
+            });
+
+            var stream = new MemoryStream();
+
+            using (var sw = new StreamWriter(stream, Encoding.UTF8, 1024, true))
+            using (var jsonTextWriter = new JsonTextWriter(sw))
+            {
+                serializer.Serialize(jsonTextWriter, value);
+            }
+
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return incomingMessage.UploadDirectlyToUser(stream, "permissions.json");
         }
     }
 }
