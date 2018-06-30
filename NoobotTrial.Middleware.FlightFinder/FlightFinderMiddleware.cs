@@ -4,6 +4,7 @@ using Noobot.Core.MessagingPipeline.Middleware.ValidHandles;
 using Noobot.Core.MessagingPipeline.Request;
 using Noobot.Core.MessagingPipeline.Response;
 using NoobotTrial.Core;
+using NoobotTrial.Middleware.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,16 @@ namespace NoobotTrial.Middleware.FlightFinder
     public class FlightFinderMiddleware : MiddlewareBase
     {
         private readonly IFlightFinderClient _flightFinderClient;
+        private readonly AuthorizationPlugin _authorizationPlugin;
 
         public FlightFinderMiddleware(
             IMiddleware next,
             IFlightFinderClient flightFinderClient,
-            ILog log) : base(next)
+            ILog log,
+            AuthorizationPlugin authorizationPlugin) : base(next)
         {
             _flightFinderClient = flightFinderClient;
+            _authorizationPlugin = authorizationPlugin;
             HandlerMappings = new[]
             {
                new HandlerMapping
@@ -33,6 +37,11 @@ namespace NoobotTrial.Middleware.FlightFinder
 
         private IEnumerable<ResponseMessage> Handler(IncomingMessage message, IValidHandle matchedHandle)
         {
+            if (!_authorizationPlugin.HasPermission("tflights", message.UserEmail))
+            {
+                yield return message.ReplyToChannel("Nope! Ask for access first."); yield break;
+            }
+
             var results = _flightFinderClient.Find().GetAwaiter().GetResult();
 
             var attachments = results

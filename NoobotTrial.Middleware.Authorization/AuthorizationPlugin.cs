@@ -52,9 +52,9 @@ namespace NoobotTrial.Middleware.Authorization
                 .Select(x => x.Name);
         }
 
-        public bool HasPermission(string permissionName, string command)
+        public bool HasPermission(string permissionName, string userEmail)
         {
-            return Permissions.Value.Contains(new Permission(permissionName, command));
+            return Permissions.Value.Contains(new Permission(permissionName, userEmail));
         }
 
         public IEnumerable<Permission> GetAllPermissions()
