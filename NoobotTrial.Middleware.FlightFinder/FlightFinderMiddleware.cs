@@ -24,8 +24,8 @@ namespace NoobotTrial.Middleware.FlightFinder
             {
                new HandlerMapping
                {
-                   ValidHandles = ExactMatchHandle.For("flights"),
-                   Description = "Cheapest upcoming flights to Turkey",
+                   ValidHandles = ExactMatchHandle.For("tflights"),
+                   Description = "Cheapest upcoming weekend flights to Turkey (Istanbul)",
                    EvaluatorFunc = ((Func<IncomingMessage, IValidHandle, IEnumerable<ResponseMessage>>)Handler).WithErrorHandling(log)
                }
             };
@@ -52,19 +52,19 @@ namespace NoobotTrial.Middleware.FlightFinder
             }.AddAttachmentAction("Book flights", "https://www.flypgs.com/en"));
 
 
-            yield return message.ReplyToChannel("Here is what we found", attachments);
+            yield return message.ReplyToChannel("Cheapest upcoming weekend flights from London to Istanbul - Friday evening to Sunday evening:", attachments);
         }
 
         private string GetColor(Flight flight)
         {
-            if (flight.Price < 100)
+            if (flight.Price < 200)
             {
                 return "#7CD197";
             }
 
-            if (flight.Price < 200)
+            if (flight.Price < 400)
             {
-                return "#F35A00";
+                return "#FFFF00";
             }
 
             return "#FF0000";

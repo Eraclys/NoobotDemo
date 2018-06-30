@@ -23,12 +23,12 @@ namespace NoobotTrial.Middleware.Authorization
                     ValidHandles = ValidHandle.For(
                         "auth (grant|deny) [permissionName] [userEmail]", 
                         x => PermissionCommandParser.TryParsePermissionCommandExpression(x).WasSuccessful),
-                    Description = "Grants or denies access to a command",
-                    EvaluatorFunc = HandlePermissionCommand,
+                    Description = "Grants or denies access to a command. Usage: auth grant tflights ebrugul@hotmail.com, john.doe@gmail.com",
+                    EvaluatorFunc = HandleGrantOrDenyPermission,
                 },
                 new HandlerMapping
                 {
-                    ValidHandles = ExactMatchHandle.For("auth ls -all"),
+                    ValidHandles = ExactMatchHandle.For("auth ls"),
                     Description = "Will provide the full list of permissions",
                     EvaluatorFunc = HandleListAllPermissions
                 },
@@ -96,7 +96,7 @@ namespace NoobotTrial.Middleware.Authorization
             yield return incomingMessage.ReplyToChannel(json);
         }
 
-        private IEnumerable<ResponseMessage> HandlePermissionCommand(IncomingMessage incomingMessage, IValidHandle validHandle)
+        private IEnumerable<ResponseMessage> HandleGrantOrDenyPermission(IncomingMessage incomingMessage, IValidHandle validHandle)
         {
             var command = PermissionCommandParser.ParsePermissionCommandExpression(incomingMessage.TargetedText);
 

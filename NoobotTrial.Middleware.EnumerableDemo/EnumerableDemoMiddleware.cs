@@ -15,7 +15,7 @@ namespace NoobotTrial.Middleware.EnumerableDemo
             {
                 new HandlerMapping
                 {
-                    ValidHandles = ExactMatchHandle.For("enumerable"),
+                    ValidHandles = ExactMatchHandle.For("demo enumerable"),
                     Description = "Shows that message are streamed one after another",
                     EvaluatorFunc = Handle
                 }
