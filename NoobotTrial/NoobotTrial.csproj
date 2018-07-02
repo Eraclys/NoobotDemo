@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NoobotTrial.Middleware.Calculator\NoobotTrial.Middleware.Calculator.csproj" />
-    <ProjectReference Include="..\NoobotTrial.Middleware.EnumerableDemo\NoobotTrial.Middleware.EnumerableDemo.csproj" />
     <ProjectReference Include="..\NoobotTrial.Middleware.FlightFinder\NoobotTrial.Middleware.FlightFinder.csproj" />
     <ProjectReference Include="..\NoobotTrial.Middleware.FormattingDemo\NoobotTrial.Middleware.FormattingDemo.csproj" />
     <ProjectReference Include="..\NoobotTrial.Middleware.Authorization\NoobotTrial.Middleware.Authorization.csproj" />

@@ -42,6 +42,8 @@ namespace NoobotTrial.Middleware.FlightFinder
                 yield return message.ReplyToChannel("Nope! Ask for access first."); yield break;
             }
 
+            yield return message.IndicateTypingOnChannel();
+
             var results = _flightFinderClient.Find().GetAwaiter().GetResult();
 
             var attachments = results
