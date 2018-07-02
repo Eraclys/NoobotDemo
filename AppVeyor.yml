@@ -9,7 +9,12 @@ dotnet_csproj:
   version: '{version}'
   package_version: '{version}'
 
-before_build:   dotnet restore ".\NoobotTrial.sln" 
+before_build: 
+- ps: |
+    $Destination = Join-Path -Path $PSScriptRoot -Child "src/Noobot.Console/Configuration/config.json"
+    Write-Output $Destination
+    Copy-Item  "src/Noobot.Console/Configuration/config.default.json" $Destination
+    dotnet restore ".\NoobotTrial.sln" 
 
 build_script: dotnet build "./NoobotTrial.sln" -c "Release"
 
