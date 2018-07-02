@@ -1,9 +1,9 @@
-﻿using System;
-using Common.Logging;
+﻿using Common.Logging;
 using Noobot.Core;
 using Noobot.Core.Configuration;
 using Noobot.Core.DependencyResolution;
 using NoobotTrial.Middleware.FlightFinder;
+using System;
 
 namespace NoobotTrial.Configuration
 {
