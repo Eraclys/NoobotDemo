@@ -4,6 +4,7 @@ using Noobot.Core.MessagingPipeline.Middleware.ValidHandles;
 using Noobot.Core.MessagingPipeline.Request;
 using Noobot.Core.MessagingPipeline.Response;
 using NoobotTrial.Core;
+using NoobotTrial.Middleware.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,22 @@ namespace NoobotTrial.Middleware.FlightFinder
     public class FlightFinderMiddleware : MiddlewareBase
     {
         private readonly IFlightFinderClient _flightFinderClient;
+        private readonly AuthorizationPlugin _authorizationPlugin;
 
         public FlightFinderMiddleware(
             IMiddleware next,
             IFlightFinderClient flightFinderClient,
-            ILog log) : base(next)
+            ILog log,
+            AuthorizationPlugin authorizationPlugin) : base(next)
         {
             _flightFinderClient = flightFinderClient;
+            _authorizationPlugin = authorizationPlugin;
             HandlerMappings = new[]
             {
                new HandlerMapping
                {
-                   ValidHandles = ExactMatchHandle.For("flights"),
-                   Description = "Cheapest upcoming flights to Turkey",
+                   ValidHandles = ExactMatchHandle.For("tflights"),
+                   Description = "Cheapest upcoming weekend flights to Turkey (Istanbul)",
                    EvaluatorFunc = ((Func<IncomingMessage, IValidHandle, IEnumerable<ResponseMessage>>)Handler).WithErrorHandling(log)
                }
             };
@@ -33,6 +37,11 @@ namespace NoobotTrial.Middleware.FlightFinder
 
         private IEnumerable<ResponseMessage> Handler(IncomingMessage message, IValidHandle matchedHandle)
         {
+            if (!_authorizationPlugin.HasPermission("tflights", message.UserEmail))
+            {
+                yield return message.ReplyToChannel("Nope! Ask for access first."); yield break;
+            }
+
             var results = _flightFinderClient.Find().GetAwaiter().GetResult();
 
             var attachments = results
@@ -52,19 +61,19 @@ namespace NoobotTrial.Middleware.FlightFinder
             }.AddAttachmentAction("Book flights", "https://www.flypgs.com/en"));
 
 
-            yield return message.ReplyToChannel("Here is what we found", attachments);
+            yield return message.ReplyToChannel("Cheapest upcoming weekend flights from London to Istanbul - Friday evening to Sunday evening:", attachments);
         }
 
         private string GetColor(Flight flight)
         {
-            if (flight.Price < 100)
+            if (flight.Price < 200)
             {
                 return "#7CD197";
             }
 
-            if (flight.Price < 200)
+            if (flight.Price < 400)
             {
-                return "#F35A00";
+                return "#FFFF00";
             }
 
             return "#FF0000";

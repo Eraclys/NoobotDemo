@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace NoobotTrial.Middleware.Calculator
 {
     /// <summary>
-    /// https://github.com/yallie/Sprache.Calc/blob/master/Sprache.Calc/ScientificCalculator.cs
+    /// https://github.com/yallie/Sprache.Calc/blob/master/Sprache.Calc/SimpleCalculator.cs
     /// </summary>
     public class SimpleCalculator
     {

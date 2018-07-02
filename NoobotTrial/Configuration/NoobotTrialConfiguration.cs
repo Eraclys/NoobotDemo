@@ -2,6 +2,7 @@
 using Noobot.Toolbox.Middleware;
 using Noobot.Toolbox.Plugins;
 using NoobotTrial.Core;
+using NoobotTrial.Middleware.Authorization;
 using NoobotTrial.Middleware.Calculator;
 using NoobotTrial.Middleware.EnumerableDemo;
 using NoobotTrial.Middleware.FlightFinder;
@@ -14,6 +15,7 @@ namespace NoobotTrial.Configuration
         public NoobotTrialConfiguration()
         {
             UseMiddleware<IndicateTypingMiddleware>();
+            UseMiddleware<AuthorizationMiddleware>();
             UseMiddleware<WelcomeMiddleware>();
             UseMiddleware<JokeMiddleware>();
             UseMiddleware<ScheduleMiddleware>();
@@ -24,6 +26,7 @@ namespace NoobotTrial.Configuration
 
             UsePlugin<JsonStoragePlugin>();
             UsePlugin<SchedulePlugin>();
+            UsePlugin<AuthorizationPlugin>();
         }
     }
 }
