@@ -1,0 +1,18 @@
+build: 1.0.{build}
+image: Visual Studio 2017
+
+configuration: Release
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+
+before_build:   dotnet restore ".\NoobotTrial.sln" 
+
+build_script: dotnet build -c "Release"  -f "netcoreapp2.0"
+
+
+test: off
+

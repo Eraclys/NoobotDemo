@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Noobot.Core_Demo" Version="3.1.55.14" />
+    <PackageReference Include="Noobot.Core_Demo" Version="3.1.55.19" />
+    <PackageReference Include="Noobot.Toolbox_Demo" Version="3.1.6.8" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,7 +15,6 @@
     <ProjectReference Include="..\NoobotTrial.Middleware.EnumerableDemo\NoobotTrial.Middleware.EnumerableDemo.csproj" />
     <ProjectReference Include="..\NoobotTrial.Middleware.FlightFinder\NoobotTrial.Middleware.FlightFinder.csproj" />
     <ProjectReference Include="..\NoobotTrial.Middleware.FormattingDemo\NoobotTrial.Middleware.FormattingDemo.csproj" />
-    <ProjectReference Include="..\SubModules\Noobot.Toolbox\src\Noobot.Toolbox\Noobot.Toolbox.csproj" />
   </ItemGroup>
 
   <ItemGroup>
