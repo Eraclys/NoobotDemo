@@ -9,7 +9,7 @@ dotnet_csproj:
   version: '{version}'
   package_version: '{version}'
 
-before_build:   dotnet restore ".\NoobotTrial.sln" 
+before_build:   dotnet restore ".\NoobotDemo.sln" 
 
 build_script: dotnet build -c "Release"  -f "netcoreapp2.0"
 
